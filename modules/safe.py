@@ -94,7 +94,8 @@ def load(filename, *args, **kwargs):
 
     try:
         if not shared.cmd_opts.disable_safe_unpickle:
-            check_pt(filename)
+            pass
+            # check_pt(filename)
 
     except pickle.UnpicklingError:
         print(f"Error verifying pickled file from {filename}:", file=sys.stderr)
