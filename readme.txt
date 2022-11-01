@@ -1,3 +1,5 @@
+下载 https://github.com/TencentARC/GFPGAN/releases/download/v1.3.0/GFPGANv1.4.pth
+
 复制或移动下载好的NovelAI模型到项目文件夹 stable-diffusion-webui
 
 复制GFPGANv1.4.pth 到 stable-diffusion-webui 根目录。
