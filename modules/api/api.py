@@ -1,7 +1,9 @@
+from crypt import methods
 import time
 import uvicorn
 from gradio.processing_utils import encode_pil_to_base64, decode_base64_to_file, decode_base64_to_image
 from fastapi import APIRouter, Depends, HTTPException
+from modules.sd_models import list_models, select_checkpoint
 import modules.shared as shared
 from modules import devices
 from modules.api.models import *
@@ -40,6 +42,14 @@ class Api:
         self.app.add_api_route("/sdapi/v1/extra-batch-images", self.extras_batch_images_api, methods=["POST"], response_model=ExtrasBatchImagesResponse)
         self.app.add_api_route("/sdapi/v1/png-info", self.pnginfoapi, methods=["POST"], response_model=PNGInfoResponse)
         self.app.add_api_route("/sdapi/v1/progress", self.progressapi, methods=["GET"], response_model=ProgressResponse)
+        self.app.add_api_route('/api/test',self.test,methods=['GET','POST'])
+
+    def test(self,id):
+        print ('test!')
+        print ('id',id)
+        shared.opts.sd_model_checkpoint = id
+        select_checkpoint()
+        return 'ok'
 
     def text2imgapi(self, txt2imgreq: StableDiffusionTxt2ImgProcessingAPI):
         sampler_index = sampler_to_index(txt2imgreq.sampler_index)

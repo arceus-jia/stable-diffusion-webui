@@ -227,4 +227,4 @@ if __name__ == "__main__":
     prepare_enviroment()
     start_webui()
 
-# python launch.py --server_name 192.168.10.18
+# python launch.py --listen

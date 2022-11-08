@@ -6,6 +6,8 @@ import signal
 import threading
 from fastapi import FastAPI
 from fastapi.middleware.gzip import GZipMiddleware
+# from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.cors import CORSMiddleware
 
 from modules.paths import script_path
 
@@ -106,6 +108,16 @@ def api_only():
 
     app = FastAPI()
     app.add_middleware(GZipMiddleware, minimum_size=1000)
+
+    origins = ["*"]
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"], # Allows all origins
+        allow_credentials=True,
+        allow_methods=["*"], # Allows all methods
+        allow_headers=["*"], # Allows all headers
+    )
+
     api = create_api(app)
 
     api.launch(server_name="0.0.0.0" if cmd_opts.listen else "127.0.0.1", port=cmd_opts.port if cmd_opts.port else 7861)
@@ -118,7 +130,6 @@ def webui():
     while 1:
         demo = modules.ui.create_ui(wrap_gradio_gpu_call=wrap_gradio_gpu_call)
         server_name="0.0.0.0" if cmd_opts.listen else None,
-        server_name=cmd_opts.server_name
 
         app, local_url, share_url = demo.launch(
             share=cmd_opts.share,

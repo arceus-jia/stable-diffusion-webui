@@ -8,6 +8,9 @@
 复制novelaileak\stableckpt\animevae.pt 到 stable-diffusion-webui\models\Stable-diffusion目录下，并改名为final-pruned.vae.pt 。
 复制novelaileak\stableckpt\modules\modules下的所有文件 到 stable-diffusion-webui\models\hypernetworks目录下，如果hypernetworks目录不存在，新建文件夹即可。
 
-
-
 python launch.py --server_name 192.168.10.18
+
+遇到 module 'cv2.cv2' has no attribute 'FaceDetectorYN'
+pip uninstall opencv-python-headless
+pip uninstall opencv-python
+pip install opencv-contrib-python
